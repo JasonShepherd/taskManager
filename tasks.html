@@ -104,28 +104,38 @@
 </body>
 
 <script>
+
+	$(document).ready(function(){
 	$('[required="required"]').prev('label').append('<span>*</span>').children('span').addClass('required');
 
 	$('tbody tr:even').addClass('even');
 
 	$('#btnAddTsk').click(function(evt){
 		evt.preventDefault();
-
-		
 		$('#taskCreation').removeClass('not');
 	});
 
-$('tbody tr'). click( function( evt) { 
-	$(evt.target).closest( 'td').siblings().andSelf().toggleClass('rowHighlight'); 
-
-});
+	$('tbody tr').click( function( evt) { 
+		$(evt.target).closest( 'td').siblings().andSelf().toggleClass('rowHighlight'); 
+	});
 
 
 
 $('#tblTasks tbody').on('click', '.deleteRow', function(evt){
 	evt.preventDefault();
 	$(evt.target).parents('tr').remove();
-})
+});
+
+});
+
+//Added this to test delete function
+$('#tblTasks tbody tr:first' ).clone().insertAfter('#tblTasks tbody tr:last')
+
+
+
+
+
+
 
 
 </script>
