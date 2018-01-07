@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Task List</title>
+	<link rel="stylesheet" type="text/css" href="styles/tasks.css" media = "screen"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	
+	
+
+
+</head>
+
+<body>
+	<header>
+		<span>Task list</span>
+	</header>
+	<main>
+		<section id="taskCreation" class="not">
+			<form>
+				<div>
+					<label>Task</label><input type="text" required="required"
+					 name="task" class="large" placeholder="Enter task "/>
+				</div>
+				<div>
+					<label> Required by </label > <input type =" date" required ="required" 
+					name ="requiredBy"/>
+				</div>
+				<div>
+					<label>Category</label><select name="category">
+						<option value="Personal">Personal</option>
+						<option value="Work">Work</option>
+					</select>
+				</div>
+				<nav>
+					<a href="#">Save Task</a><a href="#">Clear Task</a>
+				</nav>
+			</form>
+		</section>
+		<section>
+			<table id ="tblTasks">
+				<colgroup>
+					<col width="50%">
+					<col width="25%">
+					<col width="25%">
+				</colgroup>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Due</th>
+						<th>Category</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-priority="high">
+						<td data-name-field="true">Return Library Books</td>
+						<td><time datetime="2018-10-14">2018-10-14</time></td>
+						<td>Personal</td>
+					</tr>
+					<tr>
+						<td>Perform Project Demo to stake holders</td>
+						<td><time datetime="2018-10-14">2018-10-14</time></td>
+						<td>Work</td>
+					</tr>
+					<tr data-priority="medium">
+						<td>Meet friends for dinner</td>
+						<td><time datetime="2018-10-14">2018-10-14</time></td>
+						<td>Personal</td>
+					</tr>
+						
+				</tbody>	
+			</table>
+			<nav>
+				<a href="#" id="btnAddTsk">Add task</a>
+			</nav>
+		</section>
+	</main>
+	<footer>You have 3 tasks.</footer>
+</body>
+
+<script>
+	$('[required="required"]').prev('label').append('<span>*</span>').children('span').addClass('required');
+
+	$('tbody tr:even').addClass('even');
+
+	$('#btnAddTsk').click(function(evt){
+		evt.preventDefault();
+
+		
+		$('#taskCreation').removeClass('not');
+	});
+
+$('tbody tr'). click( function( evt) { 
+	$(evt.target).closest( 'td').siblings().andSelf().toggleClass('rowHighlight'); 
+
+});
+
+C
+
+</script>
+
+</html>
