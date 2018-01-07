@@ -120,10 +120,13 @@ $('tbody tr'). click( function( evt) {
 
 });
 
+
+
 $('#tblTasks tbody').on('click', '.deleteRow', function(evt){
 	evt.preventDefault();
 	$(evt.target).parents('tr').remove();
 })
+
 
 </script>
 
