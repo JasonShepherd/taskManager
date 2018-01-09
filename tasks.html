@@ -6,6 +6,9 @@
 	<title>Task List</title>
 	<link rel="stylesheet" type="text/css" href="styles/tasks.css" media = "screen"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+
+ 
 	
 	
 
@@ -127,6 +130,31 @@ $('#tblTasks tbody').on('click', '.deleteRow', function(evt){
 });
 
 });
+
+//jQuery PLugin
+(function($) { 
+		$.fn.extend({ 
+			toObject: function(){
+				var result = {}
+				 $.each(this.serializeArray(),function(i,v){
+				 	result[v.name] = v.value;
+
+				 });
+				 return result;
+			},
+			fromObject:function(obj){
+				$.each(this.find(':input'),function(i,v) {
+					var name = $(v).attr('name');
+					if(obj[name]){
+						$(v).val(obj[name]);
+
+					} else {
+						$(v).val('');
+					}
+				});
+			}
+		}); 
+	})(jQuery);
 
 //Added this to test delete function
 $('#tblTasks tbody tr:first' ).clone().insertAfter('#tblTasks tbody tr:last')
