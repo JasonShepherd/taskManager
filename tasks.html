@@ -8,11 +8,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 
- 
-	
-	
-
-
 </head>
 
 <body>
@@ -37,10 +32,12 @@
 					</select>
 				</div>
 				<nav>
-					<a href="#">Save Task</a><a href="#">Clear Task</a>
+					<a href="#" id="saveTask">Save Task</a>
+					<a href="#">Clear Task</a>
 				</nav>
 			</form>
 		</section>
+
 		<section>
 			<table id ="tblTasks">
 				<colgroup>
@@ -57,45 +54,9 @@
 						<th>Actions</th>
 					</tr>
 				</thead>
+
 				<tbody>
-					<tr data-priority="high">
-						<td data-name-field="true">Return Library Books</td>
-						<td><time datetime="2018-10-14">2018-10-14</time></td>
-						<td>Personal</td>
-						<nav>
-						<td>
-							<nav>
-								<a href="#" class="editRow">Edit</a>
-								<a href="#" class="completeRow">Complete</a>
-								<a href="#" class="deleteRow">Delete</a>
-							</nav>
-						</td>
-					</tr>
-					<tr>
-						<td>Perform Project Demo to stake holders</td>
-						<td><time datetime="2018-10-14">2018-10-14</time></td>
-						<td>Work</td>
-						<td>
-							<nav>
-								<a href="#" class="editRow">Edit</a>
-								<a href="#" class="completeRow">Complete</a>
-								<a href="#" class="deleteRow">Delete</a>
-							</nav>
-						</td>
-					</tr>
-					<tr data-priority="medium">
-						<td>Meet friends for dinner</td>
-						<td><time datetime="2018-10-14">2018-10-14</time></td>
-						<td>Personal</td>
-						<td>
-							<nav>
-								<a href="#" class="editRow">Edit</a>
-								<a href="#" class="completeRow">Complete</a>
-								<a href="#" class="deleteRow">Delete</a>
-							</nav>
-						</td>
-					</tr>
-						
+					
 				</tbody>	
 			</table>
 			<nav>
@@ -118,16 +79,27 @@
 		$('#taskCreation').removeClass('not');
 	});
 
+
 	$('tbody tr').click( function( evt) { 
 		$(evt.target).closest( 'td').siblings().andSelf().toggleClass('rowHighlight'); 
 	});
 
 
 
-$('#tblTasks tbody').on('click', '.deleteRow', function(evt){
-	evt.preventDefault();
-	$(evt.target).parents('tr').remove();
-});
+	$('#tblTasks tbody').on('click', '.deleteRow', function(evt){
+		evt.preventDefault();
+		$(evt.target).parents('tr').remove();
+	});
+
+	$('#saveTask').click(function(evt){
+		evt.preventDefault();
+		var task = $('form').toObject();
+		$('#taskRow').tmpl(task).appendTo( $('#tblTasks tbody'));
+
+	});
+	
+
+
 
 });
 
@@ -159,13 +131,27 @@ $('#tblTasks tbody').on('click', '.deleteRow', function(evt){
 //Added this to test delete function
 $('#tblTasks tbody tr:first' ).clone().insertAfter('#tblTasks tbody tr:last')
 
-
-
-
-
-
-
-
 </script>
+
+
+<!-- left off here  -->
+<script id="taskRow" type="text/x-jQuery-tmpl">
+	<tr>
+		<td>${task}</td>
+		<td> <time datetime="${requiredBy}">${requiredBy}</time></td>
+		<td>${catagory}</td>
+		<td>
+			<nav>
+				<a href="#">Edit</a>
+				<a href="#">Complete</a>
+				<a href="#" class="deleteRow">Delete</a>
+			</nav>
+		</td>
+	</tr>
+</script>
+
+
+
+
 
 </html>
