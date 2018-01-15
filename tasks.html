@@ -6,7 +6,10 @@
 	<title>Task List</title>
 	<link rel="stylesheet" type="text/css" href="styles/tasks.css" media = "screen"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+	<script src="scripts/jquery-tmpl.js" type="text/javascript"></script>
+	<script src="scripts/validate.js" type="text/javascript"></script>
+	<script src="scripts/jquery-serialization.js" type="text/javascript"></script>
+	<script src="scripts/tasks-controller.js" type="text/javascript"></script>
 
 </head>
 
@@ -14,12 +17,13 @@
 	<header>
 		<span>Task list</span>
 	</header>
-	<main>
+	
+	<main id="taskPage">
 		<section id="taskCreation" class="not">
-			<form>
+			<form id="taskForm">
 				<div>
-					<label>Task</label><input type="text" required="required"
-					 name="task" class="large" placeholder="Enter task "/>
+					<label>Task</label>
+					<input type="text" required="required" maxLength="200" name="task" class="large" placeholder="Enter task "/>
 				</div>
 				<div>
 					<label> Required by </label > <input type =" date" required ="required" 
@@ -33,7 +37,7 @@
 				</div>
 				<nav>
 					<a href="#" id="saveTask">Save Task</a>
-					<a href="#">Clear Task</a>
+					<a href="#" id="clearTask">Clear Task</a>
 				</nav>
 			</form>
 		</section>
@@ -68,7 +72,7 @@
 </body>
 
 <script>
-
+	
 	$(document).ready(function(){
 	$('[required="required"]').prev('label').append('<span>*</span>').children('span').addClass('required');
 
@@ -103,38 +107,13 @@
 
 });
 
-//jQuery PLugin
-(function($) { 
-		$.fn.extend({ 
-			toObject: function(){
-				var result = {}
-				 $.each(this.serializeArray(),function(i,v){
-				 	result[v.name] = v.value;
-
-				 });
-				 return result;
-			},
-			fromObject:function(obj){
-				$.each(this.find(':input'),function(i,v) {
-					var name = $(v).attr('name');
-					if(obj[name]){
-						$(v).val(obj[name]);
-
-					} else {
-						$(v).val('');
-					}
-				});
-			}
-		}); 
-	})(jQuery);
-
-//Added this to test delete function
-$('#tblTasks tbody tr:first' ).clone().insertAfter('#tblTasks tbody tr:last')
-
+$(document).ready(function(){
+	tasksController.init($('#taskPage'));
+});
 </script>
 
 
-<!-- left off here  -->
+
 <script id="taskRow" type="text/x-jQuery-tmpl">
 	<tr>
 		<td>${task}</td>
